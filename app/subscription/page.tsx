@@ -15,67 +15,77 @@ const SubscriptionPage = async () => {
   const user = await clerkClient().users.getUser(userId);
   const currentMonthTransactions = await getCurrentMonthTransactions();
   const hasPremiumPlan = user.publicMetadata.subscriptionPlan == "premium";
+
   return (
     <>
       <Navbar />
-      <div className="space-y-6 p-6">
-        <h1 className="text-2xl font-bold">Assinatura</h1>
+      <div className="min-h-screen space-y-6 overflow-y-auto p-6">
+        <h1 className="text-xl font-bold md:text-2xl">Assinatura</h1>
 
-        <div className="flex gap-6">
-          <Card className="w-[450px]">
-            <CardHeader className="border-b border-solid py-8">
-              <h2 className="text-center text-2xl font-semibold">
+        <div className="flex flex-col gap-6 lg:flex-row">
+          {/* Plano Básico */}
+          <Card className="w-full lg:w-[450px]">
+            <CardHeader className="border-b border-solid py-6">
+              <h2 className="text-center text-xl font-semibold md:text-2xl">
                 Plano Básico
               </h2>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-4xl">R$</span>
-                <span className="text-6xl font-semibold">0</span>
-                <div className="text-2xl text-muted-foreground">/mês</div>
+              <div className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-3">
+                <span className="text-3xl md:text-4xl">R$</span>
+                <span className="text-5xl font-semibold md:text-6xl">0</span>
+                <div className="text-xl text-muted-foreground md:text-2xl">
+                  /mês
+                </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-6 py-8">
+            <CardContent className="space-y-6 py-6">
               <div className="flex items-center gap-2">
                 <CheckIcon className="text-primary" />
-                <p>
+                <p className="text-sm md:text-base">
                   Apenas 10 transações por mês ({currentMonthTransactions}/10)
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <XIcon />
-                <p>Relatórios de IA</p>
+                <p className="text-sm md:text-base">Relatórios de IA</p>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="w-[450px]">
-            <CardHeader className="relative border-b border-solid py-8">
+          {/* Plano Premium */}
+          <Card className="w-full lg:w-[450px]">
+            <CardHeader className="relative border-b border-solid py-6">
               {hasPremiumPlan && (
                 <Badge className="absolute left-4 top-12 bg-primary/10 text-primary">
                   Ativo
                 </Badge>
               )}
-              <h2 className="text-center text-2xl font-semibold">
+              <h2 className="text-center text-xl font-semibold md:text-2xl">
                 Plano Premium
               </h2>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-4xl">R$</span>
-                <span className="text-6xl font-semibold">19</span>
-                <div className="text-2xl text-muted-foreground">/mês</div>
+              <div className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-3">
+                <span className="text-3xl md:text-4xl">R$</span>
+                <span className="text-5xl font-semibold md:text-6xl">10</span>
+                <div className="text-xl text-muted-foreground md:text-2xl">
+                  /mês
+                </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-6 py-8">
+            <CardContent className="space-y-6 py-6">
               <div className="flex items-center gap-2">
                 <CheckIcon className="text-primary" />
-                <p>Transações ilimitadas</p>
+                <p className="text-sm md:text-base">Transações ilimitadas</p>
               </div>
               <div className="flex items-center gap-2">
                 <CheckIcon className="text-primary" />
-                <p>Relatórios de IA</p>
+                <p className="text-sm md:text-base">Relatórios de IA</p>
               </div>
               <AcquirePlanButton />
             </CardContent>
           </Card>
         </div>
+
+        {/* Espaçamento adicional para evitar cortes */}
+        <div className="pb-12"></div>
       </div>
     </>
   );

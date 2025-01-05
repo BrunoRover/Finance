@@ -10,8 +10,9 @@ const LoginPage = async () => {
   if (userId) {
     redirect("/");
   }
+
   return (
-    <div className="grid h-full grid-cols-2">
+    <div className="grid h-full grid-cols-1 md:grid-cols-2">
       {/* ESQUERDA */}
       <div className="mx-auto flex h-full max-w-[550px] flex-col justify-center p-8">
         <Image
@@ -35,7 +36,7 @@ const LoginPage = async () => {
         </SignInButton>
       </div>
       {/* DIREITA */}
-      <div className="relative h-full w-full">
+      <div className="relative hidden h-full w-full md:block">
         <Image
           src="/login.png"
           alt="Faça login"

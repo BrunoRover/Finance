@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowDownUpIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import UpsertTransactionDialog from "./upsert-transaction-dialog";
@@ -26,12 +25,12 @@ const AddTransactionButton = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="rounded-full font-bold"
+              className="flex items-center rounded-full px-4 py-2 text-sm font-bold sm:text-base"
               onClick={() => setDialogIsOpen(true)}
               disabled={!userCanAddTransaction}
             >
-              Adicionar transação
-              <ArrowDownUpIcon />
+              {/* Apenas o texto em telas pequenas */}
+              <span className="sm:block">Adicionar transação</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>

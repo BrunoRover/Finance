@@ -8,6 +8,7 @@ interface SummaryCardProps {
   amount: number;
   size?: "small" | "large";
   userCanAddTransaction?: boolean;
+  isFirstCard?: boolean; // Adiciona a prop para verificar se é o primeiro card
 }
 
 const SummaryCard = ({
@@ -16,18 +17,30 @@ const SummaryCard = ({
   amount,
   size = "small",
   userCanAddTransaction,
+  isFirstCard = false, // Definido como false por padrão
 }: SummaryCardProps) => {
   return (
-    <Card>
-      <CardHeader className="flex-row items-center gap-4">
-        {icon}
+    <Card className="flex flex-col">
+      {/* Cabeçalho com ícone e título, só no primeiro card "large" */}
+      <CardHeader
+        className={`${
+          isFirstCard && size === "large"
+            ? "flex-col items-start pb-4" // Layout para o primeiro card "large"
+            : "flex-row items-center gap-4" // Layout padrão
+        }`}
+      >
+        <div className="flex-shrink-0">{icon}</div>
         <p
-          className={`${size === "small" ? "text-muted-foreground" : "text-white opacity-70"}`}
+          className={`text-base font-medium ${
+            size === "small" ? "text-muted-foreground" : "text-white opacity-70"
+          }`}
         >
           {title}
         </p>
       </CardHeader>
-      <CardContent className="flex justify-between">
+
+      {/* Conteúdo com valor e botão (opcional) */}
+      <CardContent className="flex flex-col justify-between md:flex-row md:items-center">
         <p
           className={`font-bold ${size === "small" ? "text-2xl" : "text-4xl"}`}
         >
@@ -37,8 +50,13 @@ const SummaryCard = ({
           }).format(amount)}
         </p>
 
-        {size === "large" && (
-          <AddTransactionButton userCanAddTransaction={userCanAddTransaction} />
+        {/* Botão para adicionar transação */}
+        {size === "large" && isFirstCard && userCanAddTransaction && (
+          <div className="mt-4 flex-shrink-0 md:ml-4 md:mt-0 md:flex md:justify-center">
+            <AddTransactionButton
+              userCanAddTransaction={userCanAddTransaction}
+            />
+          </div>
         )}
       </CardContent>
     </Card>
